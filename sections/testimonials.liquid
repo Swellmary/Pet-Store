@@ -4,13 +4,27 @@
   <div class="testimonials-wrapper">
     <button class="slider-arrow slider-prev" aria-label="Previous">&#8249;</button>
     
-    <div class="testimonial-card" {{ block.shopify_attributes }}>
-      <p class="testimonial-quote">"{{ block.settings.quote }}"</p>
-      <button class="see-more-btn" data-quote="{{ block.settings.quote | escape }}" data-author="{{ block.settings.author | escape }}">See More</button>
-      <span class="testimonial-author">- {{ block.settings.author }}</span>
+    <div id="testimonials-grid-{{ section.id }}" class="testimonials-grid">
+      {% for block in section.blocks %}
+        <div class="testimonial-card" {{ block.shopify_attributes }}>
+          <div class="testimonial-card-inner">
+            <p class="testimonial-quote">"{{ block.settings.quote }}"</p>
+            <button class="see-more-btn" data-quote="{{ block.settings.quote | escape }}" data-author="{{ block.settings.author | escape }}">See More</button>
+          </div>
+          <span class="testimonial-author">- {{ block.settings.author }}</span>
+        </div>
+      {% endfor %}
     </div>
     
     <button class="slider-arrow slider-next" aria-label="Next">&#8250;</button>
+  </div>
+
+  <div class="modal-overlay" id="modal-{{ section.id }}">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Close">&times;</button>
+      <p class="modal-quote"></p>
+      <span class="modal-author"></span>
+    </div>
   </div>
 </div>
 
@@ -22,13 +36,15 @@
 
   #testimonials-{{ section.id }} .testimonials-heading {
     margin-bottom: 30px;
+    font-size: 28px;
+    font-weight: 600;
   }
 
   #testimonials-{{ section.id }} .testimonials-wrapper {
     position: relative;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 50px; /* space for arrows */
+    padding: 0 50px;
   }
 
   #testimonials-{{ section.id }} .testimonials-grid {
@@ -40,6 +56,7 @@
     scroll-snap-type: x mandatory;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    padding: 10px 0;
   }
 
   #testimonials-{{ section.id }} .testimonials-grid::-webkit-scrollbar {
@@ -49,35 +66,79 @@
   #testimonials-{{ section.id }} .testimonial-card {
     flex: 0 0 300px;
     min-width: 300px;
-    max-width: 350px;
+    max-width: 300px;
+    height: 240px;
     padding: 25px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
     background: #fff;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+
+  #testimonials-{{ section.id }} .testimonial-card:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    transform: translateY(-2px);
+  }
+
+  #testimonials-{{ section.id }} .testimonial-card-inner {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
   }
 
   #testimonials-{{ section.id }} .testimonial-quote {
     font-style: italic;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 1.6;
-    margin-bottom: 15px;
+    color: #444;
+    margin: 0 0 12px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   #testimonials-{{ section.id }} .testimonial-author {
-    font-weight: bold;
+    font-weight: 600;
     color: #666;
+    font-size: 14px;
+  }
+
+  #testimonials-{{ section.id }} .see-more-btn {
+    background: none;
+    border: none;
+    color: #007bff;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 0;
+    margin-top: auto;
+    margin-bottom: 12px;
+    font-weight: 500;
+    transition: color 0.3s;
+    text-align: left;
+    width: fit-content;
+  }
+
+  #testimonials-{{ section.id }} .see-more-btn:hover {
+    color: #0056b3;
+    text-decoration: underline;
   }
 
   #testimonials-{{ section.id }} .slider-arrow {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     background: #fff;
-    border: 1px solid #ddd;
+    border: 1px solid #e0e0e0;
     border-radius: 50%;
     font-size: 24px;
     cursor: pointer;
@@ -85,13 +146,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    transition: background 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    color: #333;
   }
 
   #testimonials-{{ section.id }} .slider-arrow:hover {
-    background: #f5f5f5;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    background: #007bff;
+    color: #fff;
+    border-color: #007bff;
+    box-shadow: 0 4px 12px rgba(0,123,255,0.3);
   }
 
   #testimonials-{{ section.id }} .slider-prev {
@@ -102,131 +166,155 @@
     right: 0;
   }
 
-  /* Hide arrows on mobile, allow swipe */
-  @media (max-width: 600px) {
-    #testimonials-{{ section.id }} .testimonials-wrapper {
-      padding: 0 10px;
+  #testimonials-{{ section.id }} .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    z-index: 99999;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #testimonials-{{ section.id }} .modal-overlay.active {
+    display: flex;
+  }
+
+  #testimonials-{{ section.id }} .modal-content {
+    background: #fff;
+    padding: 35px;
+    border-radius: 16px;
+    max-width: 520px;
+    width: 90%;
+    max-height: 70vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: modalFadeIn 0.3s ease;
+  }
+
+  @keyframes modalFadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95) translateY(-10px);
     }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  #testimonials-{{ section.id }} .modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #f0f0f0;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    color: #666;
+    line-height: 1;
+  }
+
+  #testimonials-{{ section.id }} .modal-close:hover {
+    background: #e0e0e0;
+    color: #333;
+  }
+
+  #testimonials-{{ section.id }} .modal-quote {
+    font-style: italic;
+    font-size: 17px;
+    line-height: 1.8;
+    color: #333;
+    margin: 15px 0 25px 0;
+  }
+
+  #testimonials-{{ section.id }} .modal-author {
+    font-weight: 600;
+    color: #555;
+    font-size: 15px;
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    #testimonials-{{ section.id }} .testimonials-wrapper {
+      padding: 0 15px;
+    }
+
+    #testimonials-{{ section.id }} .slider-arrow {
+      width: 36px;
+      height: 36px;
+      font-size: 20px;
+    }
+
+    #testimonials-{{ section.id }} .slider-prev {
+      left: -5px;
+    }
+
+    #testimonials-{{ section.id }} .slider-next {
+      right: -5px;
+    }
+
+    #testimonials-{{ section.id }} .testimonial-card {
+      flex: 0 0 260px;
+      min-width: 260px;
+      max-width: 260px;
+      height: 220px;
+      padding: 20px;
+    }
+  }
+
+  @media (max-width: 480px) {
     #testimonials-{{ section.id }} .slider-arrow {
       display: none;
     }
+
+    #testimonials-{{ section.id }} .testimonials-wrapper {
+      padding: 0 10px;
+    }
+
+    #testimonials-{{ section.id }} .modal-content {
+      padding: 25px;
+      width: 95%;
+    }
   }
-
-  /* Modal Styles */
-#testimonials-{{ section.id }} .modal-overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
-  z-index: 9999;
-  justify-content: center;
-  align-items: center;
-}
-
-#testimonials-{{ section.id }} .modal-overlay.active {
-  display: flex;
-}
-
-#testimonials-{{ section.id }} .modal-content {
-  background: #fff;
-  padding: 30px;
-  border-radius: 16px;
-  max-width: 500px;
-  width: 90%;
-  max-height: 70vh;
-  overflow-y: auto;
-  position: relative;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-  animation: modalSlideIn 0.3s ease;
-}
-
-@keyframes modalSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-#testimonials-{{ section.id }} .modal-close {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background: #f5f5f5;
-  border: none;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  font-size: 18px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.3s;
-}
-
-#testimonials-{{ section.id }} .modal-close:hover {
-  background: #e0e0e0;
-}
-
-#testimonials-{{ section.id }} .modal-quote {
-  font-style: italic;
-  font-size: 16px;
-  line-height: 1.8;
-  color: #333;
-  margin-bottom: 20px;
-}
-
-#testimonials-{{ section.id }} .modal-author {
-  font-weight: bold;
-  color: #666;
-  font-size: 14px;
-}
-
-#testimonials-{{ section.id }} .see-more-btn {
-  background: none;
-  border: none;
-  color: #007bff;
-  font-size: 13px;
-  cursor: pointer;
-  padding: 0;
-  margin-top: 8px;
-  font-weight: 500;
-  transition: color 0.3s;
-}
-
-#testimonials-{{ section.id }} .see-more-btn:hover {
-  color: #0056b3;
-  text-decoration: underline;
-}
 </style>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     var section = document.getElementById('testimonials-{{ section.id }}');
+    if (!section) return;
+
     var grid = document.getElementById('testimonials-grid-{{ section.id }}');
     var prevBtn = section.querySelector('.slider-prev');
     var nextBtn = section.querySelector('.slider-next');
     var card = grid.querySelector('.testimonial-card');
     var scrollAmount = card ? card.offsetWidth + 20 : 320;
 
-    // Arrow navigation
-    prevBtn.addEventListener('click', function() {
-      grid.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-    });
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function() {
+        grid.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      });
+    }
 
-    nextBtn.addEventListener('click', function() {
-      grid.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    });
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function() {
+        grid.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      });
+    }
 
-    // Modal functionality
     var modal = document.getElementById('modal-{{ section.id }}');
     var modalQuote = modal.querySelector('.modal-quote');
     var modalAuthor = modal.querySelector('.modal-author');
@@ -240,16 +328,26 @@
         modalQuote.textContent = '"' + quote + '"';
         modalAuthor.textContent = '- ' + author;
         modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
       });
     });
 
-    modalClose.addEventListener('click', function() {
+    function closeModal() {
       modal.classList.remove('active');
-    });
+      document.body.style.overflow = '';
+    }
+
+    modalClose.addEventListener('click', closeModal);
 
     modal.addEventListener('click', function(e) {
       if (e.target === modal) {
-        modal.classList.remove('active');
+        closeModal();
+      }
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModal();
       }
     });
   });
@@ -275,13 +373,13 @@
           "type": "textarea",
           "id": "quote",
           "label": "Quote",
-          "default": "Great store!"
+          "default": "This is an amazing store with great products and excellent customer service!"
         },
         {
           "type": "text",
           "id": "author",
           "label": "Author",
-          "default": "John"
+          "default": "John Smith"
         }
       ]
     }
