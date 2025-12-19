@@ -31,7 +31,7 @@
     position: relative;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 50px; /* space for arrows */
+    padding: 0 50px;
   }
 
   #testimonials-{{ section.id }} .testimonials-grid {
@@ -43,6 +43,7 @@
     scroll-snap-type: x mandatory;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    align-items: stretch;
   }
 
   #testimonials-{{ section.id }} .testimonials-grid::-webkit-scrollbar {
@@ -52,13 +53,18 @@
   #testimonials-{{ section.id }} .testimonial-card {
     flex: 0 0 300px;
     min-width: 300px;
-    max-width: 350px;
+    max-width: 300px;
+    height: 220px; /* Fixed height for all cards */
     padding: 25px;
     border: 1px solid #ddd;
     border-radius: 10px;
     background: #fff;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
   }
 
   #testimonials-{{ section.id }} .testimonial-quote {
@@ -66,11 +72,19 @@
     font-size: 16px;
     line-height: 1.6;
     margin-bottom: 15px;
+    
+    /* Truncate text with ellipsis after 5 lines */
+    display: -webkit-box;
+    -webkit-line-clamp: 5; /* Change this number for more/less lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   #testimonials-{{ section.id }} .testimonial-author {
     font-weight: bold;
     color: #666;
+    margin-top: auto; /* Push author to bottom */
   }
 
   #testimonials-{{ section.id }} .slider-arrow {
@@ -105,7 +119,6 @@
     right: 0;
   }
 
-  /* Hide arrows on mobile, allow swipe */
   @media (max-width: 600px) {
     #testimonials-{{ section.id }} .testimonials-wrapper {
       padding: 0 10px;
