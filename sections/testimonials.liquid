@@ -1,3 +1,5 @@
+{{ 'testimonials.css' | asset_url | stylesheet_tag }}
+
 <div id="testimonials-{{ section.id }}" class="testimonials-section">
   <h2 class="testimonials-heading">{{ section.settings.heading }}</h2>
   
@@ -9,7 +11,7 @@
         <div class="testimonial-card" {{ block.shopify_attributes }}>
           <div class="testimonial-card-inner">
             <p class="testimonial-quote">"{{ block.settings.quote }}"</p>
-            <button class="see-more-btn" data-quote="{{ block.settings.quote | escape }}" data-author="{{ block.settings.author | escape }}">See More</button>
+            <button class="see-more-btn" data-quote="{{ block.settings.quote | escape }}" data-author="{{ block.settings.author | escape }}">See less</button>
           </div>
           <span class="testimonial-author">- {{ block.settings.author }}</span>
         </div>
@@ -28,7 +30,9 @@
   </div>
 </div>
 
-<style>
+<script src="{{ 'testimonials.js' | asset_url }}" defer></script>
+
+{% comment %} <style>
   #testimonials-{{ section.id }} {
     padding: 40px 20px;
     text-align: center;
@@ -297,9 +301,9 @@
       width: 95%;
     }
   }
-</style>
+</style> {% endcomment %}
 
-<script>
+{% comment %} <script>
   document.addEventListener('DOMContentLoaded', function() {
     var section = document.getElementById('testimonials-{{ section.id }}');
     if (!section) return;
@@ -393,7 +397,7 @@
       }
     });
   });
-</script>
+</script> {% endcomment %}
 
 {% schema %}
 {
