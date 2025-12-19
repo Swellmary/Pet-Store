@@ -322,6 +322,30 @@
       });
     }
 
+    // Hide/show arrows based on scroll position and content
+    function updateArrows() {
+      var maxScroll = grid.scrollWidth - grid.clientWidth;
+      
+      // If content doesn't overflow, hide both arrows
+      if (maxScroll <= 0) {
+        prevBtn.style.display = 'none';
+        nextBtn.style.display = 'none';
+      } else {
+        // Show/hide based on scroll position
+        prevBtn.style.display = grid.scrollLeft <= 0 ? 'none' : 'flex';
+        nextBtn.style.display = grid.scrollLeft >= maxScroll - 5 ? 'none' : 'flex';
+      }
+    }
+
+    // Run on load
+    updateArrows();
+
+    // Run on scroll
+    grid.addEventListener('scroll', updateArrows);
+
+    // Run on window resize
+    window.addEventListener('resize', updateArrows);
+
     // Check which quotes are truncated and show "See More" only for those
     var quotes = section.querySelectorAll('.testimonial-quote');
     var seeMoreBtns = section.querySelectorAll('.see-more-btn');
