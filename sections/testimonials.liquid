@@ -1,4 +1,4 @@
-{{ 'testimonials.css' | asset_url | stylesheet_tag }}
+{{ 'section-testimonials.css' | asset_url | stylesheet_tag }}
 
 <div class="testimonials-section" data-section-id="{{ section.id }}">
   <h2 class="testimonials-heading">{{ section.settings.heading }}</h2>
@@ -30,7 +30,7 @@
   </div>
 </div>
 
-<script src="{{ 'testimonials.js' | asset_url }}" defer></script>
+<script src="{{ 'section-testimonials.js' | asset_url }}" defer></script>
 
 {% schema %}
 {
