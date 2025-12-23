@@ -3595,32 +3595,15 @@ details-disclosure > details {
     transform: translateX(100%) scaleX(0);
   }
 }
+/* Sticky Product Image | Author: Mary*/
+/* opening the metafields will not make the image shift upward or downward  */
 
-/* ================================
-   CUSTOM STYLES - Hover Mega Menu
-   ================================ */
-
-/* Show mega menu on hover */
-.mega-menu:hover > .mega-menu__content {
-  display: block !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  pointer-events: auto !important;
+@media screen and (min-width: 750px) {
+  .product__media-wrapper {
+    position: sticky;
+    top: 20px;
+    align-self: flex-start;
+  }
 }
 
-/* Keep the details open state working on hover */
-.mega-menu:hover > summary::after,
-.mega-menu:hover > summary .icon-caret {
-  transform: rotate(180deg);
-}
-
-/* Make sure the dropdown doesn't disappear when moving mouse */
-.mega-menu__content {
-  top: 100%;
-  left: 0;
-}
-
-/* Smooth transition */
-.mega-menu > .mega-menu__content {
-  transition: opacity 0.2s ease, visibility 0.2s ease;
-}
+/* End Sticky Product Image| Author: Mary*/

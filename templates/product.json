@@ -67,7 +67,7 @@
           "settings": {
             "heading": "More Details",
             "icon": "none",
-            "content": "<p>{{ product.metafields.custom.shipping.value }}</p>",
+            "content": "{% if product.metafields.custom.shipping.value != blank %}<p>{{ product.metafields.custom.shipping.value }}</p>{% endif %}",
             "page": ""
           }
         },
