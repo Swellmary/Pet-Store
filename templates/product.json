@@ -65,7 +65,7 @@
         "collapsible_tab_g4pfbg": {
           "type": "collapsible_tab",
           "settings": {
-            "heading": "Shipping",
+            "heading": "More Details",
             "icon": "none",
             "content": "<p>{{ product.metafields.custom.shipping.value }}</p>",
             "page": ""
