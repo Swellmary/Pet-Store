@@ -150,6 +150,20 @@
       "testimonials": {
         "type": "testimonials",
         "blocks": {
+          "testimonial_gdbkVn": {
+            "type": "testimonial",
+            "settings": {
+              "quote": "This is an amazing store with great products and excellent customer service!",
+              "author": "John Smith"
+            }
+          },
+          "testimonial_yrD3JJ": {
+            "type": "testimonial",
+            "settings": {
+              "quote": "This is an amazing store with great products and excellent customer service!",
+              "author": "John Smith"
+            }
+          },
           "testimonial_kDAege": {
             "type": "testimonial",
             "settings": {
@@ -178,14 +192,7 @@
               "author": "Jessel"
             }
           },
-          "testimonial_pPUtit": {
-            "type": "testimonial",
-            "settings": {
-              "quote": "This is an amazing store with great products and excellent customer service!",
-              "author": "John Smith"
-            }
-          },
-          "testimonial_DGpt8y": {
+          "testimonial_7UhJrg": {
             "type": "testimonial",
             "settings": {
               "quote": "This is an amazing store with great products and excellent customer service!",
@@ -194,12 +201,13 @@
           }
         },
         "block_order": [
+          "testimonial_gdbkVn",
+          "testimonial_yrD3JJ",
           "testimonial_kDAege",
           "testimonial_ByqxpA",
           "testimonial_fRLRRe",
           "testimonial_KkGhUL",
-          "testimonial_pPUtit",
-          "testimonial_DGpt8y"
+          "testimonial_7UhJrg"
         ],
         "settings": {
           "heading": "What People Say"
