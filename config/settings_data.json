@@ -177,13 +177,29 @@
               "quote": "Just completed the Pet First Aid course as a refresher for my original training about 2 years ago. I was a little sceptical how beneficial the online course would be but I shouldn’t have been as it felt so much more detailed than my original classroom training. Each module had detailed explanations and examples and was in bite sized chunks if you needed to take a break.",
               "author": "Jessel"
             }
+          },
+          "testimonial_pPUtit": {
+            "type": "testimonial",
+            "settings": {
+              "quote": "This is an amazing store with great products and excellent customer service!",
+              "author": "John Smith"
+            }
+          },
+          "testimonial_DGpt8y": {
+            "type": "testimonial",
+            "settings": {
+              "quote": "This is an amazing store with great products and excellent customer service!",
+              "author": "John Smith"
+            }
           }
         },
         "block_order": [
           "testimonial_kDAege",
           "testimonial_ByqxpA",
           "testimonial_fRLRRe",
-          "testimonial_KkGhUL"
+          "testimonial_KkGhUL",
+          "testimonial_pPUtit",
+          "testimonial_DGpt8y"
         ],
         "settings": {
           "heading": "What People Say"
