@@ -114,20 +114,21 @@
         "row_AqePMR": {
           "type": "row",
           "settings": {
-            "caption": "Caption",
-            "heading": "Row",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
-            "button_label": "Button label",
+            "image": "shopify://shop_images/sdds1_4.jpg",
+            "caption": "VET-APPROVED",
+            "heading": "Nutrition Backed by Science",
+            "text": "<p>Every product in our store is carefully selected and reviewed by veterinary professionals. Your fur baby deserves only the best.</p>",
+            "button_label": "Meet Our Experts",
             "button_link": ""
           }
         },
         "row_J8kzTk": {
           "type": "row",
           "settings": {
-            "caption": "Caption",
-            "heading": "Row",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
-            "button_label": "Button label",
+            "caption": "CLEAN INGREDIENTS",
+            "heading": "Know What's in Every Bite",
+            "text": "<p>No fillers, no artificial preservatives—just real, wholesome nutrition. We believe pet parents deserve full transparency, so you always know exactly what you're feeding your best friend.</p>",
+            "button_label": "See Ingredients",
             "button_link": ""
           }
         }
