@@ -405,6 +405,10 @@
     </script>
     {% comment %} End | Author: Mary | Mega-Menu Hover JS {% endcomment %}
 
+    {% comment %} Author: Mary | Quick View Modal {% endcomment %}
+    {{ 'quick-view.css' | asset_url | stylesheet_tag }}
+    {% render 'quick-view-modal' %}
+    <script src="{{ 'quick-view.js' | asset_url }}" defer="defer"></script>
 
   </body>
 </html>
